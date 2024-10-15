@@ -19,11 +19,8 @@ namespace OpenCvSharp.DebuggerVisualizers
             bitmap = proxy.CreateBitmap();
         }
 
-        /// <summary lang="zh-CN">
-        /// 仅仅用于开发目的。
-        /// </summary>
-        /// <summary lang="ja-JP">
-        /// デバッグのみを目的としています。
+        /// <summary>
+        /// For development purposes only.
         /// </summary>
         /// <param name="imgFile"></param>
         public ImageViewer(string imgFile)
@@ -32,10 +29,7 @@ namespace OpenCvSharp.DebuggerVisualizers
             bitmap = new Bitmap(imgFile);
         }
 
-        private void DisposeBitmap()
-        {
-            bitmap?.Dispose();
-        }
+        private void DisposeBitmap() => bitmap?.Dispose();
 
         protected override void OnLoad(EventArgs e)
         {
@@ -48,7 +42,7 @@ namespace OpenCvSharp.DebuggerVisualizers
         }
 
         /// <summary>
-        /// ClientSizeを画面からはみ出ない大きさに調整して設定する.
+        /// Adjust and set the size so that it does not extend beyond the screen.
         /// </summary>
         /// <param name="size"></param>
         private double SetClientSize(System.Drawing.Size size)
@@ -65,19 +59,15 @@ namespace OpenCvSharp.DebuggerVisualizers
             return ratio;
         }
 
-        private double ReformRatio(double ratio)
+        private static double ReformRatio(double ratio)
         {
-            var v1 = ratio;
-            var lg2 = Math.Log(v1, 2);
+            var lg2 = Math.Log(ratio, 2);
             var lgz = Math.Floor(lg2);
             var pw = lgz == lg2 ? lgz - 1 : lgz;
             var r = Math.Pow(2, pw);
             return r;
         }
 
-        private void DisplayRatio(double ratio)
-        {
-            Text = $@"ImageViewer Zoom: {ratio:P1}";
-        }
+        private void DisplayRatio(double ratio) => Text = $@"ImageViewer Zoom: {ratio:P1}";
     }
 }

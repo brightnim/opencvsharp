@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.DebuggerVisualizers;
 namespace OpenCvSharp.DebuggerVisualizers
 {
     /// <summary>
-    /// シリアライズ処理
+    /// Serialization process
     /// </summary>
     public class MatObjectSource : VisualizerObjectSource
     {

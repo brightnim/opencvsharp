@@ -5,8 +5,9 @@ using System.IO;
 namespace OpenCvSharp.DebuggerVisualizers
 {
     /// <summary>
-    /// シリアライズ不可能なクラスをやり取りするために使うプロキシ。
-    /// 送る際に、このProxyに表示に必要なシリアライズ可能なデータを詰めて送り、受信側で復元する。
+    /// Proxy used to exchange non-serializable classes
+    /// When sending this Proxy, Packs the serializable data necessary for
+    /// display and sends it to the receiver, decompressing it on the receiving side.
     /// </summary>
     [Serializable]
     public class MatProxy

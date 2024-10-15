@@ -4,23 +4,31 @@ using Microsoft.VisualStudio.DebuggerVisualizers;
 namespace OpenCvSharp.DebuggerVisualizers
 {
     /// <summary>
-    /// ビジュアライザでの視覚化処理
+    /// Visualization process in Visualizer
     /// </summary>
     public class MatDebuggerVisualizer : DialogDebuggerVisualizer
     {
+        public MatDebuggerVisualizer() : base(FormatterPolicy.Legacy)
+        {
+        }
+
         protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider)
         {
-            // MatProxyが送られてくるはず
-            var proxy = objectProvider.GetObject() as MatProxy;
-            if (proxy is null)
+            using (var stream = objectProvider.GetData())
             {
-                throw new ArgumentException();
-            }
+                var formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                var proxy = (MatProxy)formatter.Deserialize(stream);
 
-            // Formに表示
-            using (var form = new ImageViewer(proxy))
-            {
-                windowService.ShowDialog(form);
+                if (proxy == null)
+                {
+                    throw new ArgumentException();
+                }
+
+                // Form display
+                using (var form = new ImageViewer(proxy))
+                {
+                    windowService.ShowDialog(form);
+                }
             }
         }
     }
